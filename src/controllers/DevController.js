@@ -1,6 +1,6 @@
 const axios = require('axios');
 const Dev = require('../models/Dev');
-const { index } = require('../models/utils/PointSchema');
+const parseStringAsArray = require('../utils/parseStringAsArray');
 
 module.exports = {
 
@@ -11,7 +11,7 @@ module.exports = {
 
     async store(request, response) {
         const { github_username, techs, latitude, longitude } = request.body;
-        const techs_array = techs.split(',').map(techs => techs.trim());
+        const techs_array = parseStringAsArray(techs);
 
         let dev = await Dev.findOne({ github_username });
         if (!dev) {
