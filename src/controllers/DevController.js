@@ -1,9 +1,15 @@
 const axios = require('axios');
 const Dev = require('../models/Dev');
+const { index } = require('../models/utils/PointSchema');
 
 module.exports = {
-    async store(request, response) {
 
+    async index(request, response) {
+        const devs = await Dev.find();
+        return response.json(devs);
+    },
+
+    async store(request, response) {
         const { github_username, techs, latitude, longitude } = request.body;
         const techs_array = techs.split(',').map(techs => techs.trim());
 
